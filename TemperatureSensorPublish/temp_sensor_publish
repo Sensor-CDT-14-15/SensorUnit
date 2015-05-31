@@ -1,0 +1,11 @@
+void setup() {
+  pinMode(inputPin, INPUT);     // declare sensor as input
+  Serial.begin(9600);
+}
+
+
+void loop(){
+
+}
+
+//TEST
