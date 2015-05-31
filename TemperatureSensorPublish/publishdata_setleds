@@ -3,6 +3,7 @@ int led2 = D7;  // You'll need to wire an LED to this one to see it blink.
 int led = D0; // This one is the built-in tiny one to the right of the USB jack
 float temp;
 char temperature[10];
+char publishString[40];
 
 int state = 0;
 
@@ -28,24 +29,12 @@ void loop() {
 
     sprintf(temperature,"%.1f",temp);
 
- digitalWrite(led, LOW);    // Turn OFF the LED pins
- // digitalWrite(led2, LOW);
+      sprintf(publishString, "%d", temp);
+      Spark.publish("Temperature", publishString);
 
 }
 
-int t_random(int minVal, int maxVal)
-{
-  return rand() % (maxVal - minVal + 1) + minVal;
-}
 
-int t_randomColor() {
-    return t_random(0, 255);
-}
-
-int color(String command){
-    digitalWrite(led, HIGH);
-    RGB.color(t_randomColor(),t_randomColor(),t_randomColor());
-}
 
 int blink(String command) {
     // Default is fast blink
@@ -76,4 +65,18 @@ int flashon(String command){
 int flashoff(String command){
 digitalWrite(led2, LOW);
 return 1;
+}
+
+int t_random(int minVal, int maxVal)
+{
+  return rand() % (maxVal - minVal + 1) + minVal;
+}
+
+int t_randomColor() {
+    return t_random(0, 255);
+}
+
+int color(String command){
+    digitalWrite(led, HIGH);
+    RGB.color(t_randomColor(),t_randomColor(),t_randomColor());
 }
